@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
+import '../../../controllers/menu_controller.dart';
+import '../../../responsive.dart';
 import '../../resources/assets_manager.dart';
 import '../../resources/string_manager.dart';
 import '../../resources/values_manger.dart';
@@ -15,8 +18,15 @@ class Header extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Text(AppStrings.dashboard,style: Theme.of(context).textTheme.headline6,),
-        const Spacer(flex: AppCount.c2,),
+        if(!Responsive.isDesktop(context))
+          IconButton(
+              onPressed: context.read<MenuController>().controlMenu,
+              icon: const Icon(Icons.menu),
+          ),
+        if(!Responsive.isMobile(context))
+          Text(AppStrings.dashboard,style: Theme.of(context).textTheme.headline6,),
+        if(!Responsive.isMobile(context))
+          Spacer(flex: Responsive.isDesktop(context)?2:1,),
         const Expanded(
           child:  SearchField(),
         ),
@@ -44,7 +54,8 @@ class ProfileCard extends StatelessWidget {
         children: [
           Image.asset(ImageAssets.profilePic,height: AppSize.s38,),
           const Text(AppStrings.userName),
-          const Padding(padding: EdgeInsets.symmetric(horizontal: defaultPadding/AppSize.s2)),
+          if(!Responsive.isMobile(context))
+            const Padding(padding: EdgeInsets.symmetric(horizontal: defaultPadding/AppSize.s2)),
           const Icon(Icons.keyboard_arrow_down),
         ],
       ),

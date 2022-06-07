@@ -1,5 +1,6 @@
-import 'screens/resources/values_manger.dart';
 import 'package:flutter/material.dart';
+
+import 'screens/resources/values_manger.dart';
 
 const primaryColor = Color(0xFF2697FF);
 const secondaryColor = Color(0xFF2A2D3E);

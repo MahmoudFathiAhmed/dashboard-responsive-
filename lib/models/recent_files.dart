@@ -1,5 +1,4 @@
-import 'package:dashboard/screens/resources/assets_manager.dart';
-
+import '../screens/resources/assets_manager.dart';
 import '../screens/resources/string_manager.dart';
 
 class RecentFile {

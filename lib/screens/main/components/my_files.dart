@@ -1,8 +1,8 @@
-import 'package:dashboard/responsive.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
 import '../../../models/my_files.dart';
+import '../../../responsive.dart';
 import '../../resources/string_manager.dart';
 import '../../resources/values_manger.dart';
 import 'file_info_card.dart';
@@ -15,6 +15,7 @@ class MyFiles extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Size _size = MediaQuery.of(context).size;
     return Column(
       children: [
         Row(
@@ -25,9 +26,10 @@ class MyFiles extends StatelessWidget {
             ),
             ElevatedButton.icon(onPressed: (){},
                 style: TextButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(
+                    padding: EdgeInsets.symmetric(
                       horizontal: defaultPadding * AppSize.s1_5,
-                      vertical: defaultPadding,
+                      vertical:
+                      defaultPadding / (Responsive.isMobile(context) ? 2:1),
                     )
                 ),
                 icon: const Icon(Icons.add),
@@ -35,10 +37,14 @@ class MyFiles extends StatelessWidget {
           ],
         ),
         const SizedBox(height: defaultPadding,),
-        const Responsive(
-            mobile: FileInfoCardGridView(),
-            tablet: FileInfoCardGridView(),
-            desktop: FileInfoCardGridView()),
+        Responsive(
+            mobile: FileInfoCardGridView(
+              crossAxisCount: _size.width <650 ? 2 : 4,
+              childAspectRatio: _size.width < 650 ? 1.3 : 1,
+            ),
+            tablet: const FileInfoCardGridView(),
+            desktop: FileInfoCardGridView(childAspectRatio: _size.width < 1400? 1.1:1.4,),
+        ),
       ],
     );
   }
@@ -55,12 +61,14 @@ class FileInfoCardGridView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
+      physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         itemCount: demoMyFiles.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: crossAxisCount,
           crossAxisSpacing: defaultPadding,
           childAspectRatio: childAspectRatio,
+          mainAxisSpacing: defaultPadding,
         ),
         itemBuilder: (context, index)=>FileInfoCard(
           info: demoMyFiles[index],
