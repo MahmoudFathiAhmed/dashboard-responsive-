@@ -1,13 +1,17 @@
+import 'package:dashboard/responsive.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
+import '../../../models/my_files.dart';
 import '../../resources/string_manager.dart';
 import '../../resources/values_manger.dart';
+import 'file_info_card.dart';
 
 class MyFiles extends StatelessWidget {
   const MyFiles({
     Key? key,
   }) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -31,21 +35,36 @@ class MyFiles extends StatelessWidget {
           ],
         ),
         const SizedBox(height: defaultPadding,),
-        GridView.builder(
-            shrinkWrap: true,
-            itemCount: AppCount.c4,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: AppCount.c4,
-              crossAxisSpacing: defaultPadding,
-            ),
-            itemBuilder: (context, index)=>Container(
-              decoration: BoxDecoration(
-                color: secondaryColor,
-                borderRadius: BorderRadius.all(Radius.circular(AppSize.s10),
-                ),
-              ),
-            )),
+        const Responsive(
+            mobile: FileInfoCardGridView(),
+            tablet: FileInfoCardGridView(),
+            desktop: FileInfoCardGridView()),
       ],
+    );
+  }
+}
+
+class FileInfoCardGridView extends StatelessWidget {
+  const FileInfoCardGridView({
+    Key? key, this.crossAxisCount= AppCount.c4, this.childAspectRatio= AppSize.s1,
+  }) : super(key: key);
+
+  final int crossAxisCount;
+  final double childAspectRatio;
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.builder(
+        shrinkWrap: true,
+        itemCount: demoMyFiles.length,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: crossAxisCount,
+          crossAxisSpacing: defaultPadding,
+          childAspectRatio: childAspectRatio,
+        ),
+        itemBuilder: (context, index)=>FileInfoCard(
+          info: demoMyFiles[index],
+        ),
     );
   }
 }

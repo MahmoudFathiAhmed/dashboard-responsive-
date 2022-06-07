@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../responsive.dart';
 import '../dashboard/dashboard_screen.dart';
 import '../resources/values_manger.dart';
 import 'components/side_menu.dart';
@@ -13,14 +14,15 @@ class MainScreen extends StatelessWidget {
       body: SafeArea(
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
+          children: [
+            if(Responsive.isDesktop(context))
+              Expanded(
+                //1/6 by default because it takes flex: 1
+                child: SideMenu(),
+              ),
             Expanded(
-              //1/6 by default because it takes flex: 1
-              child: SideMenu(),
-            ),
-            Expanded(
-              flex: AppCount.c5,//5/6
-              child: DashboardScreen()
+                flex: AppCount.c5,//5/6
+                child: DashboardScreen()
             ),
           ],
         ),

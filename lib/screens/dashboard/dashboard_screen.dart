@@ -1,9 +1,8 @@
-import 'package:dashboard/screens/resources/string_manager.dart';
 import 'package:flutter/material.dart';
-
 import '../../constants.dart';
 import '../main/components/header.dart';
 import '../main/components/my_files.dart';
+import '../main/components/recent_files.dart';
 import '../main/components/storage_details.dart';
 import '../resources/values_manger.dart';
 
@@ -24,7 +23,13 @@ class DashboardScreen extends StatelessWidget {
               children: [
                 Expanded(
                   flex: AppCount.c5,
-                  child: MyFiles(),
+                  child: Column(
+                    children: const [
+                      MyFiles(),
+                      SizedBox(height: defaultPadding,),
+                      RecentFiles(),
+                    ],
+                  ),
                 ),
                 const SizedBox(width: defaultPadding,),
                 const Expanded(

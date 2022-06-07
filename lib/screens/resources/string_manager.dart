@@ -16,8 +16,17 @@ class AppStrings {
   static const unknown = "Unknown";
   static const files = "Files";
   static const myFiles = "My Files";
+  static const recentFiles = "Recent Files";
   static const addNew = "Add New";
   static const googleDrive = "Google Drive";
   static const oneDrive = "One Drive";
+  static const xdFile = "XD File";
+  static const figmaFile = "Figma File";
+  static const soundFile = "Sound File";
+  static const salesPdf = "Sales PDF";
+  static const excelFile = "Excel File";
+  static const fileName = "File Name";
+  static const date = "Date";
+  static const size = "Size";
 
 }
